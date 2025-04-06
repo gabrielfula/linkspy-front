@@ -1,28 +1,33 @@
 "use client"
 
-import * as React from "react"
+import { useActionState, useEffect } from "react"
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { create } from "@/app/actions/create-link";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 export default function GenerateUrl() {
-     const [url, setUrl] = React.useState("")
+     const [state, action] = useActionState(create, undefined);
 
-     const handleSubmit = (e: React.FormEvent) => {
-          e.preventDefault();
-     }
+     const queryClient = useQueryClient();
+
+     useEffect(() => {
+          if (state?.response === "success") {
+               queryClient.invalidateQueries({ queryKey: ["recent-urls"] });
+          }
+     }, [state]);
 
      return (
           <>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form action={action} className="space-y-4">
                     <div className="space-y-2">
                          <div className="flex gap-2">
                               <Input
-                                   id="url"
+                                   id="old_url"
                                    placeholder="https://example.com/very/long/url/that/needs/shortening"
-                                   value={url}
-                                   onChange={(e) => setUrl(e.target.value)}
+                                   name="old_url"
                                    className="flex-1 h-12 text-base"
                                    required
                               />
