@@ -10,11 +10,12 @@ export async function apiRequest(path: string, method: "GET" | "POST" | "PUT" | 
           ...(data && { body: JSON.stringify(data) }),
      };
    
-     const response = await fetch(fullUrl, options);
-   
-     if (!response.ok) {
-       throw new Error(`Erro na requisição: ${response.status}`);
+     try {
+          const response = await fetch(fullUrl, options);
+          const result = await response.json();
+
+          return result;
+        } catch (error: any) {
+          throw error;
      }
-   
-     return response.json();
 }
