@@ -2,6 +2,7 @@
 
 import { apiRequest } from "@/lib/api";
 import { loginSchema } from "@/schemas/login/login.schema";
+import { cookies } from "next/headers";
 import { createServerAction } from "zsa"
 
 export const handleLogin = createServerAction()
@@ -14,6 +15,13 @@ export const handleLogin = createServerAction()
                username: email,
                password,
           });
+          if (response?.success && response.token) {
+               (await cookies()).set("token", response.token, {
+                    // httpOnly: true,
+                    path: "/",
+                    maxAge: 60 * 60 * 24 * 1,
+               });
+          }
 
           return response
      } catch (error) {

@@ -7,9 +7,12 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { handleLogin } from "@/app/actions/login";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
      const [showPassword, setShowPassword] = useState(false);
+
+     const router = useRouter();
 
      const { executeFormAction, data, isPending } = useServerAction(handleLogin);
 
@@ -19,6 +22,7 @@ export default function LoginForm() {
 
           if (data !== undefined && data.success === true) {
                toast.success("Login realizado com sucesso!");
+               router.push("/home")
           } else if (data !== undefined && data.success === false) {
                toast.error(data.message);
           } else {
@@ -71,7 +75,6 @@ export default function LoginForm() {
                          Entrar
                     </Button>
                </div>
-
           </form>
      );
 }
