@@ -1,11 +1,15 @@
+import { getCookie } from "@/helpers/utils";
+
 export async function apiRequest(path: string, method: "GET" | "POST" | "PUT" | "DELETE", data?: any) {
-     const baseUrl = process.env.API_BASE_URL || "http://localhost:4001";
-     const fullUrl = `${baseUrl}/v1/${path.replace(/^\/+/, "")}`;
-   
+     const baseUrl     = process.env.API_BASE_URL || "http://localhost:4001";
+     const fullUrl     = `${baseUrl}/v1/${path.replace(/^\/+/, "")}`;
+     const accountCode = getCookie("account_code");
+
      const options: RequestInit = {
           method,
           headers: {
                "Content-Type": "application/json",
+               ...(accountCode ? { "X-Account-Code": accountCode } : {}),
           },
           ...(data && { body: JSON.stringify(data) }),
      };
