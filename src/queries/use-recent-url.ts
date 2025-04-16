@@ -16,6 +16,6 @@ export function useRecentUrls() {
      return useQuery({
           queryKey: ['recent-urls'],
           queryFn: fetchRecentUrls,
-          refetchInterval: 5000,
+          staleTime: 1000 * 60 * 5,
      });
 }

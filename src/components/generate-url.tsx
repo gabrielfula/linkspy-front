@@ -1,42 +1,43 @@
-"use client"
+'use client'
 
-import { useActionState, useEffect } from "react"
-
+import { useGenerateUrl } from "@/queries/use-generate-url";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { create } from "@/app/actions/create-link";
-import { useQueryClient } from "@tanstack/react-query";
+import { CreateUrlData, createUrlSchema } from "@/schemas/generate-url/generate-url";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import TextInput from "./input-text";
 
 
 export default function GenerateUrl() {
-     const [state, action] = useActionState(create, undefined);
 
-     const queryClient = useQueryClient();
+     const { mutateAsync, isPending } = useGenerateUrl();
 
-     useEffect(() => {
-          if (state?.response === "success") {
-               queryClient.invalidateQueries({ queryKey: ["recent-urls"] });
-          }
-     }, [state]);
+     const { control, handleSubmit, reset } = useForm<CreateUrlData>({
+          resolver: zodResolver(createUrlSchema),
+     });
+      
+     const handleCreateLink = async (data: CreateUrlData) => {
+          reset();
+          await mutateAsync(data);
+     };
 
      return (
-          <>
-              <form action={action} className="space-y-4">
-                    <div className="space-y-2">
-                         <div className="flex gap-2">
-                              <Input
-                                   id="old_url"
-                                   placeholder="https://example.com/very/long/url/that/needs/shortening"
-                                   name="old_url"
-                                   className="flex-1 h-12 text-base"
-                                   required
-                              />
-                              <Button type="submit" size="lg" className="h-12 px-6">
-                                   Gerar
-                              </Button>
-                         </div>
+          <form onSubmit={handleSubmit(handleCreateLink)} className="space-y-4">
+               <div className="space-y-2">
+                    <div className="flex gap-2">
+                         <TextInput
+                              name="old_url"
+                              control={control}
+                              placeholder="https://exemplo.com/de/link/para/rastrear"
+                              className="flex-1 h-12 text-base"
+                              disabled={isPending}
+                         />
+                         <Button type="submit" size="lg" className="h-12 px-6 cursor-pointer" disabled={isPending}>
+                              {isPending ? "Gerando..." : "Gerar"}
+                         </Button>
                     </div>
-               </form>
-          </>
+               </div>
+          </form>
      );
 }

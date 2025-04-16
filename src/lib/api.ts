@@ -14,6 +14,10 @@ export async function apiRequest(path: string, method: "GET" | "POST" | "PUT" | 
           const response = await fetch(fullUrl, options);
           const result = await response.json();
 
+          if (!response.ok || result.success === false) {
+               throw new Error(result.message || 'Erro desconhecido');
+          }
+
           return result;
         } catch (error: any) {
           throw error;
