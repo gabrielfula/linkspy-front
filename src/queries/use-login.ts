@@ -22,7 +22,11 @@ export function useLogin() {
 
      return useMutation({
           mutationFn: async (data: LoginData) => await handleLogin(data),
-          onSuccess: () => {
+          onSuccess: (data) => {
+               if (data?.name) {
+                    localStorage.setItem("user_name", data.name);
+               }
+
                toast.success("Login realizado com sucesso!");
                router.push("/home");
           },

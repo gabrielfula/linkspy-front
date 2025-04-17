@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
           const cookieStore = await cookies();
           cookieStore.set('token', result.token, {
-               httpOnly: true,
+               // httpOnly: true,
                path: '/',
                maxAge: 60 * 60 * 24,
                secure: process.env.NODE_ENV === 'production',
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
                sameSite: 'lax',
           });
 
-          return NextResponse.json({ success: true });
+          return NextResponse.json({ success: true, name: result.name });
      } catch (error) {
           return NextResponse.json({ success: false, message: 'Erro no servidor' }, { status: 500 });
      }
