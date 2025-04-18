@@ -7,8 +7,9 @@ export const getCookie = (name: string): string | null => {
 }
 
 export const firstLetters = (text: string) => {
-     const firstName = text.split("")[0].slice(0, 1);
-     const secondName = text.split(" ")[1].slice(0, 1);
+     const parts = text.trim().split(" ");
+     const first = parts[0]?.[0] ?? "";
+     const second = parts[1]?.[0] ?? "";
 
-     return firstName + secondName;
+     return (first + second).toUpperCase();
 }

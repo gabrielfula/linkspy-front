@@ -18,6 +18,17 @@ export async function apiRequest(path: string, method: "GET" | "POST" | "PUT" | 
    
      try {
           const response = await fetch(fullUrl, options);
+
+          if (response.status === 401) {
+               localStorage.removeItem("user_name");
+          
+               document.cookie = "account_code=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+               document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+          
+               window.location.href = "/login";
+               return;
+          }
+
           const result   = await response.json();
 
           if (!response.ok || result.success === false) {
