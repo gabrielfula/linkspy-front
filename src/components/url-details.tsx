@@ -2,23 +2,30 @@
 
 import { copyToClipboard, formatDate } from "@/helpers/utils";
 import { Calendar, Copy, ExternalLink } from "lucide-react";
-import { Button } from "./ui/button";
 import { CardContent } from "./ui/card";
-import { ITrackDetailsProps } from "./track-details";
+import { useDetailsUrl } from "@/queries/use-detail-url";
+import { Button } from "./ui/button";
 
-export default function UrlDetails({ trackInfo }: ITrackDetailsProps) {
+type UrlDetailsProps = {
+     uuid: string;
+};
+   
+export default function UrlDetails({ uuid }: UrlDetailsProps) {
+
+     const { data } = useDetailsUrl(uuid);
+
      return (
           <>
                <CardContent className="space-y-4">
                     <div>
                          <h3 className="text-sm font-medium text-muted-foreground mb-1">Link Original</h3>
                          <div className="flex items-center justify-between bg-muted p-3 rounded-md">
-                              <p className="text-sm truncate mr-2">{trackInfo?.originalUrl}</p>
+                              <p className="text-sm truncate mr-2">{data?.original_link}</p>
                               <div className="flex-shrink-0">
-                                   <Button variant="ghost" size="icon" onClick={() => copyToClipboard(trackInfo?.originalUrl as string)}>
+                                   <Button variant="ghost" size="icon" onClick={() => copyToClipboard(data?.original_link as string)}>
                                         <Copy className="h-4 w-4" />
                                    </Button>
-                                   <Button variant="ghost" size="icon" onClick={() => window.open(trackInfo?.originalUrl, "_blank")}>
+                                   <Button variant="ghost" size="icon" onClick={() => window.open(data?.original_link, "_blank")}>
                                         <ExternalLink className="h-4 w-4" />
                                    </Button>
                               </div>
@@ -28,9 +35,9 @@ export default function UrlDetails({ trackInfo }: ITrackDetailsProps) {
                     <div>
                          <h3 className="text-sm font-medium text-muted-foreground mb-1">Link Rastreável</h3>
                          <div className="flex items-center justify-between bg-muted p-3 rounded-md">
-                              <p className="text-sm truncate mr-2">{trackInfo?.trackingUrl}</p>
+                              <p className="text-sm truncate mr-2">{data?.new_link}</p>
                               <div className="flex-shrink-0">
-                                   <Button variant="ghost" size="icon" onClick={() => copyToClipboard(trackInfo?.trackingUrl as string)}>
+                                   <Button variant="ghost" size="icon" onClick={() => copyToClipboard(data?.new_link as string)}>
                                         <Copy className="h-4 w-4" />
                                    </Button>
                               </div>
@@ -39,7 +46,7 @@ export default function UrlDetails({ trackInfo }: ITrackDetailsProps) {
 
                     <div className="flex items-center">
                          <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                         <span className="text-sm">Criado em: {formatDate(trackInfo?.created_at as string)}</span>
+                         <span className="text-sm">Criado em: {formatDate(data?.created_at as string)}</span>
                     </div>
 
                     <div className="flex items-center">

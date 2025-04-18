@@ -15,13 +15,18 @@ export const firstLetters = (text: string) => {
 }
 
 export const formatDate = (dateString: string) => {
-     const date = new Date(dateString)
+     const date = new Date(dateString);
+   
      return new Intl.DateTimeFormat("pt-BR", {
        day: "2-digit",
        month: "2-digit",
        year: "numeric",
-     }).format(date)
-}
+       hour: "2-digit",
+       minute: "2-digit",
+       timeZone: "America/Sao_Paulo",
+       hour12: false,
+     }).format(date);
+};   
 
 export const copyToClipboard = (text: string) => {
      navigator.clipboard.writeText(text)
