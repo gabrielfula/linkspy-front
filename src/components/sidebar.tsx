@@ -68,14 +68,14 @@ export default function Sidebar() {
                                         <SidebarMenuItem>
                                              <SidebarMenuButton asChild isActive>
                                                   <Link href="/home">
-                                                       <LinkCheck className="size-4" />
+                                                       <LinkIcon className="size-4" />
                                                        <span>Gerar URLs</span>
                                                   </Link>
                                              </SidebarMenuButton>
                                         </SidebarMenuItem>
                                         <SidebarMenuItem>
                                              <SidebarMenuButton asChild>
-                                                  <Link href="/home">
+                                                  <Link href="/tracking">
                                                        <MapPinCheck className="size-4" />
                                                        <span>Monitoramento</span>
                                                   </Link>

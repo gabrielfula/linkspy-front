@@ -11,24 +11,24 @@ type CopyRecentUrl = {
 };
 
 export default function CopyRecentUrl({ original_link, new_link }: CopyRecentUrl) {
-     const [copied, setCopied] = useState(false);
+     const [isCopied, setIsCopied] = useState(false);
 
      const handleCopy = async () => {
           await navigator.clipboard.writeText(new_link);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
+          setIsCopied(true);
+          setTimeout(() => setIsCopied(false), 2000);
      };
 
      return (
           <div className="flex items-center justify-between rounded-md border p-3">
                <div className="grid gap-1">
-                    <div className="font-medium">{original_link}</div>
+                    <div className="font-medium">{new_link}</div>
                     <div className="text-sm text-muted-foreground truncate">
-                         {new_link}
+                         {original_link}
                     </div>
                </div>
                <Button onClick={handleCopy} variant="outline" size="sm" className="cursor-pointer">
-                    {copied ? "Copiado!" : "Copiar"}
+                    {isCopied ? "Copiado!" : "Copiar"}
                     <LinkIcon className="size-4 ml-2" />
                </Button>
           </div>
