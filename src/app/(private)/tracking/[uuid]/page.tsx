@@ -1,8 +1,8 @@
 import { ArrowLeft } from "lucide-react"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import UrlDetails from "@/components/url-details"
-import TrackDetails from "@/components/track-details"
 import Link from "next/link"
+import TrackDetails from "@/components/track-details"
 
 
 const trackingInfo = {
