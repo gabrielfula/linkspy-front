@@ -5,19 +5,6 @@ import Link from "next/link"
 import TrackDetails from "@/components/track-details"
 
 
-const trackingInfo = {
-     id: "a3lkkrow",
-     originalUrl: "https://exemplo.com/de/link/para/rastrear",
-     trackingUrl: "http://127.0.0.1:5500/index.html?track=a3lkkrow",
-     state: "São Paulo",
-     city: "São Paulo",
-     cep: "01310-200",
-     neighborhood: "Bela Vista",
-     street: "Avenida Paulista",
-     created_at: "2023-04-15T14:30:00Z",
-     clicks: 42,
-}
-
 export default async function UrlTrackingInfo({
      params,
    }: {
@@ -46,7 +33,7 @@ export default async function UrlTrackingInfo({
                     </Card>
 
                     <Card>
-                         <TrackDetails trackInfo={trackingInfo} />
+                         <TrackDetails />
                     </Card>
                </div>
           </div>

@@ -7,7 +7,7 @@ import { CreateUrlData } from '@/schemas/generate-url/generate-url';
 
 const generateUrl = async (data: CreateUrlData) => {
      const response = await apiRequest("admin/url", "POST", {
-          old_url: data.old_url 
+          data
      });
 
      return response;
@@ -18,7 +18,7 @@ export function useGenerateUrl() {
           mutationFn: async (data: CreateUrlData) => await generateUrl(data),
           onSuccess: () => {
                queryClient.invalidateQueries({
-                    queryKey: ['recent-urls'],
+                    queryKey: ['recent-urls', 'list-urls'],
                });
 
                toast.success("Link gerado com sucesso!");

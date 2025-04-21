@@ -5,6 +5,7 @@ type Link = {
   uuid: string;
   original_link: string;
   new_link: string;
+  alias: string;
 };
 
 const fetchListUrl = async (): Promise<Link[]> => {

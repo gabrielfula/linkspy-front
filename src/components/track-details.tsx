@@ -1,6 +1,5 @@
 'use client';
 
-import { MapPin } from "lucide-react";
 import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Separator } from "@radix-ui/react-separator";
 import { Button } from "./ui/button";
