@@ -16,7 +16,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { data } from "@/mocks/list-generated.mocks"
 import ListGeneratedUrl from "./list-generated-url"
 
 
@@ -31,7 +30,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
      >
           <Sidebar
                collapsible="none"
-               className="!w-[calc(var(--sidebar-width-icon)_+_1px)] border-r"
+               className="!w-[calc(var(--sidebar-width-icon)_+_1px)] border-r flex flex-col justify-between"
           >
                <SidebarHeader>
                     <SidebarMenu>
@@ -41,10 +40,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                         <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                              <Command className="size-4" />
                                         </div>
-                                        {/* <div className="grid flex-1 text-left text-sm leading-tight">
-                                             <span className="truncate font-semibold">Acme Inc</span>
-                                             <span className="truncate text-xs">Enterprise</span>
-                                        </div> */}
                                    </a>
                               </SidebarMenuButton>
                          </SidebarMenuItem>
@@ -54,7 +49,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <NavUser />
                </SidebarFooter>
           </Sidebar>
-          <Sidebar collapsible="none" className="hidden flex-1 md:flex">
+          <Sidebar collapsible="none" className="flex flex-1">
                <SidebarHeader className="gap-3.5 border-b p-4">
                     <div className="flex w-full items-center justify-between">
                          <div className="text-base font-medium text-foreground">
