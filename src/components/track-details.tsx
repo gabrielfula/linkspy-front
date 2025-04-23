@@ -1,8 +1,7 @@
 'use client';
 
-import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Separator } from "@radix-ui/react-separator";
-import { Button } from "./ui/button";
 import { useTrackSocket } from "@/queries/use-track-socket";
 import { useDetailsUrl } from "@/queries/use-detail-url";
 

@@ -22,6 +22,7 @@ export default function LoginForm() {
    
      const handleLogin = async (data: LoginData) => {
           await mutateAsync(data);
+          reset();
      };
 
      return (
@@ -34,7 +35,6 @@ export default function LoginForm() {
                          control={control}
                          name="email"
                          placeholder="seu.email@gmail.com"
-                         // className="w-full border border-gray-300 rounded-md"
                     />
                </div>
 
@@ -48,11 +48,10 @@ export default function LoginForm() {
                               name="password"
                               type={showPassword ? "text" : "password"}
                               placeholder="••••••••"
-                              // className="w-full border border-gray-300 rounded-md pr-10"
                          />
                          <button
                               type="button"
-                              className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-gray-500 disabled:opacity-10"
+                              className="absolute cursor-pointer right-3 top-4.5 -translate-y-1/2 text-gray-500 disabled:opacity-10"
                               onClick={() => setShowPassword(!showPassword)}
                               disabled={isPending}
                          >
@@ -61,8 +60,8 @@ export default function LoginForm() {
                     </div>
                </div>
                <div className="pt-2">
-                    <Button type="submit" className="w-full text-white">
-                         Entrar
+                    <Button type="submit" disabled={isPending} className="w-full text-white">
+                         {isPending ? "Carregando..." : "Entrar"}
                     </Button>
                </div>
           </form>
