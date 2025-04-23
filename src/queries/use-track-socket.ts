@@ -7,20 +7,15 @@ import { useEffect, useState } from "react";
 export function useTrackSocket() {
 
      const socket = useSocket();
-     const [trackInfo, setTrackInfo] = useState<ITrackingDetails | undefined>({});
+     const [trackInfo, setTrackInfo] = useState<ITrackingDetails | undefined>({ location: {} });
 
      useEffect(() => {
           if (!socket) return;
 
           const handleLocationTracked = (data: any) => {
-               console.log("Nova localização recebida:", data);
                setTrackInfo((prev) => ({
                     ...prev,
-                    city: data.city || prev?.city,
-                    state: data.state || prev?.state,
-                    cep: data.cep || prev?.cep,
-                    neighborhood: data.neighborhood || prev?.neighborhood,
-                    street: data.street || prev?.street,
+                    ...data
                }));
           };
 
@@ -31,5 +26,5 @@ export function useTrackSocket() {
           };
      }, [socket]);
 
-     return { trackInfo };
+     return trackInfo?.location;
 }

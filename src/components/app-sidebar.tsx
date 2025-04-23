@@ -61,7 +61,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               Links
                          </div>
                     </div>
-                    <SidebarInput placeholder="Type to search..." />
+                    {/* <SidebarInput placeholder="Digite para buscar..." /> */}
                </SidebarHeader>
                <SidebarContent>
                     <SidebarGroup className="px-0">

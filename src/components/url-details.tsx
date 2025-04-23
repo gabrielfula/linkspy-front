@@ -46,7 +46,7 @@ export default function UrlDetails({ uuid }: UrlDetailsProps) {
 
                     <div className="flex items-center">
                          <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-                         {/* <span className="text-sm">Criado em: {formatDate(data?.created_at as string)}</span> */}
+                         <span className="text-sm">Criado em: {formatDate(data?.created_at as string)}</span>
                     </div>
 
                     <div className="flex items-center">

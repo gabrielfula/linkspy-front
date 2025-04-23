@@ -13,10 +13,6 @@ export const useSocket = () => {
           socketRef.current = socketInstance;
           setSocket(socketInstance);
 
-          socketInstance.on("connect", () => {
-               console.log("✅ Socket conectado:", socketInstance.id);
-          });
-
           return () => {
                socketInstance.disconnect();
           };

@@ -17,9 +17,8 @@ export function useGenerateUrl() {
      return useMutation({
           mutationFn: async (data: CreateUrlData) => await generateUrl(data),
           onSuccess: () => {
-               queryClient.invalidateQueries({
-                    queryKey: ['recent-urls', 'list-urls'],
-               });
+               queryClient.invalidateQueries({ queryKey: ['list-urls'] });
+               queryClient.invalidateQueries({ queryKey: ['recent-urls'] });
 
                toast.success("Link gerado com sucesso!");
           },

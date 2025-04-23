@@ -33,7 +33,7 @@ export default async function UrlTrackingInfo({
                     </Card>
 
                     <Card>
-                         <TrackDetails />
+                         <TrackDetails uuid={uuid} />
                     </Card>
                </div>
           </div>
