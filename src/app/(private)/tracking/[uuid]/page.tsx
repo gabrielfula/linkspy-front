@@ -22,7 +22,6 @@ export default async function UrlTrackingInfo({
                          Voltar
                     </Link>
                </div>
-
                <div className="grid gap-6 md:grid-cols-2">
                     <Card>
                          <CardHeader>
@@ -31,7 +30,6 @@ export default async function UrlTrackingInfo({
                          </CardHeader>
                          <UrlDetails uuid={uuid} />
                     </Card>
-
                     <Card>
                          <TrackDetails uuid={uuid} />
                     </Card>
