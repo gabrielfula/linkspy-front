@@ -13,15 +13,18 @@ export default function RecentUrl() {
                     <h3 className="mb-4 text-lg font-medium">URLs recentes geradas</h3>
                     {isLoading && <p>Carregando...</p>}
                     <div className="space-y-3">
-                         {url && url.map((item) => {
-                              return (
+                         {url && url.length > 0 ? (
+                              url.map((item) => (
                                    <CopyRecentUrl
                                         key={item.uuid}
-                                        new_link={item.new_link} 
-                                        original_link={item.original_link} 
+                                        new_link={item.new_link}
+                                        original_link={item.original_link}
                                    />
+                              ))
+                              ) : (
+                                   <p className="mt-4 text-sm">Nenhuma URL gerada</p>
                               )
-                         })}
+                         }
                     </div>
                </div>
           </>

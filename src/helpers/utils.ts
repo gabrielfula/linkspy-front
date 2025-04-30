@@ -14,8 +14,11 @@ export const firstLetters = (text: string) => {
      return (first + second).toUpperCase();
 }
 
-export const formatDate = (dateString: string) => {
+export const formatDate = (dateString?: string) => {
+     if (!dateString) return "Data inválida";
+   
      const date = new Date(dateString);
+     if (isNaN(date.getTime())) return "Data inválida";
    
      return new Intl.DateTimeFormat("pt-BR", {
        day: "2-digit",
@@ -26,7 +29,7 @@ export const formatDate = (dateString: string) => {
        timeZone: "America/Sao_Paulo",
        hour12: false,
      }).format(date);
-};   
+};
 
 export const copyToClipboard = (text: string) => {
      navigator.clipboard.writeText(text)

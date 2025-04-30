@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 export async function POST(req: NextRequest) {
      const { email, password } = await req.json();
-     const baseUrl             = process.env.API_BASE_URL || "http://localhost:4001";
+     const baseUrl             = process.env.API_BASE_URL;
 
      try {
           const res = await fetch(`${baseUrl}/v1/admin/auth/signin`, {
