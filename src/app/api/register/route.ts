@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
      const { email, password, name } = await req.json();
-     const baseUrl             = process.env.API_BASE_URL;
+     const baseUrl                   = process.env.API_BASE_URL;
 
      try {
           const res = await fetch(`${baseUrl}/v1/admin/auth/register`, {
@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
 
           return NextResponse.json({ success: true, name: result.name });
      } catch (error) {
-          console.log(error)
           return NextResponse.json({ success: false, message: 'Erro no servidor' }, { status: 500 });
      }
 }

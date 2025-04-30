@@ -10,12 +10,10 @@ type TrackDetailsProps = {
 };
 
 export default function TrackDetails({ uuid }: TrackDetailsProps) {
-     const socketData  = useTrackSocket();
+     const socketData           = useTrackSocket();
      const { data: detailData } = useDetailsUrl(uuid);
-
-     const isValidSocketData = socketData && typeof socketData === 'object' && Object.keys(socketData).length > 0;
-
-     const locationData = isValidSocketData ? socketData : detailData?.location.last_location;
+     const isValidSocketData    = socketData && typeof socketData === 'object' && Object.keys(socketData).length > 0;
+     const locationData         = isValidSocketData ? socketData : detailData?.location.last_location;
 
      return (
           <>

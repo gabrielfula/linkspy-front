@@ -5,14 +5,14 @@ import { useSocket } from "@/hooks/use-socket";
 import { useEffect, useState } from "react";
 
 export function useTrackSocket() {
-
-     const socket = useSocket();
+     const socket                    = useSocket();
      const [trackInfo, setTrackInfo] = useState<ITrackingDetails | undefined>({ location: {} });
 
      useEffect(() => {
           if (!socket) return;
 
           const handleLocationTracked = (data: any) => {
+               console.log("to no track socket")
                setTrackInfo((prev) => ({
                     ...prev,
                     ...data
