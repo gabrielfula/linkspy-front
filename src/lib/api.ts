@@ -29,7 +29,7 @@ export async function apiRequest(path: string, method: "GET" | "POST" | "PUT" | 
                return;
           }
 
-          const result   = await response.json();
+          const result = await response.json();
 
           if (!response.ok || result.success === false) {
                throw new Error(result.message || 'Erro desconhecido');

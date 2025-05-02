@@ -7,7 +7,8 @@ import { CreateUrlData } from '@/schemas/generate-url/generate-url';
 
 const generateUrl = async (data: CreateUrlData) => {
      const response = await apiRequest("admin/url", "POST", {
-          data
+          alias: data.alias,
+          old_url: data.old_url,
      });
 
      return response;
