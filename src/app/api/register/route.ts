@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
      const baseUrl                   = process.env.API_BASE_URL;
 
      try {
-          const res = await fetch(`${baseUrl}/v1/admin/auth/register`, {
+          const res = await fetch(`${baseUrl}/admin/auth/register`, {
                method: 'POST',
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify({ username: email, password, name }),

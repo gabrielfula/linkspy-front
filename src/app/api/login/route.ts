@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
      const baseUrl             = process.env.API_BASE_URL;
 
      try {
-          const res = await fetch(`${baseUrl}/v1/admin/auth/signin`, {
+          const res = await fetch(`${baseUrl}/admin/auth/signin`, {
                method: 'POST',
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify({ username: email, password }),
@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
 
           return NextResponse.json({ success: true, name: result.name });
      } catch (error) {
+          console.log(error)
           return NextResponse.json({ success: false, message: 'Erro no servidor' }, { status: 500 });
      }
 }
