@@ -48,19 +48,20 @@ export default function AuthForm({ mode }: AuthFormProps) {
                {!isLogin && (
                     <div className="space-y-2">
                          <label htmlFor="name" className="block text-sm font-medium">Nome</label>
-                         <TextInput control={control} name="name" placeholder="Nome do cliente" />
+                         <TextInput disabled={isPending} control={control} name="name" placeholder="Nome do cliente" />
                     </div>
                )}
 
                <div className="space-y-2">
                     <label htmlFor="email" className="block text-sm font-medium">Email</label>
-                    <TextInput control={control} name="email" placeholder="seu.email@gmail.com" />
+                    <TextInput disabled={isPending} control={control} name="email" placeholder="seu.email@gmail.com" />
                </div>
 
                <div className="space-y-2">
                     <label htmlFor="password" className="block text-sm font-medium">Senha</label>
                     <div className="relative">
                          <TextInput
+                              disabled={isPending}
                               control={control}
                               name="password"
                               type={showPassword ? "text" : "password"}
