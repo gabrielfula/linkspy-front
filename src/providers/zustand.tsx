@@ -5,7 +5,6 @@ import { useEffect } from "react";
 
 export function SocketInitializer() {
      useEffect(() => {
-          console.log("to no SocketInitializer")
           useSocketStore.getState().initializeSocket();
      }, []);
 

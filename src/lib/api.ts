@@ -2,7 +2,7 @@ import { getCookie } from "@/helpers/utils";
 
 export async function apiRequest(path: string, method: "GET" | "POST" | "PUT" | "DELETE", data?: any) {
      const baseUrl     = process.env.API_BASE_URL;
-     const fullUrl     = `${baseUrl}/v1/${path.replace(/^\/+/, "")}`;
+     const fullUrl     = `${baseUrl}${path.replace(/^\/+/, "")}`;
      const accountCode = getCookie("account_code");
      const token       = getCookie("token");
 
