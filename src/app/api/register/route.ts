@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
      const { email, password, name } = await req.json();
-     const baseUrl                   = process.env.API_BASE_URL;
+     const baseUrl                   = process.env.NEXT_PUBLIC_API_BASE_URL;
 
      try {
           const res = await fetch(`${baseUrl}/admin/auth/register`, {
