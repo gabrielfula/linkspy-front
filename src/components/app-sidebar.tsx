@@ -28,7 +28,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {...props}
      >
           <Sidebar
-               collapsible="none"
                className="!w-[calc(var(--sidebar-width-icon)_+_1px)] border-r flex flex-col justify-between"
           >
                <SidebarHeader>
@@ -44,26 +43,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                          </SidebarMenuItem>
                     </SidebarMenu>
                </SidebarHeader>
-               <SidebarFooter className="flex items-end h-full justify-end">
-                    <NavUser />
-               </SidebarFooter>
           </Sidebar>
-          <Sidebar collapsible="none" className="flex flex-1">
-               <SidebarHeader className="gap-3.5 border-b p-4">
-                    <div className="flex w-full items-center justify-between">
-                         <div className="text-base font-medium text-foreground">
-                              Links
+          <Sidebar>
+               <SidebarHeader className="gap-3.5 border-b p-4 mt-[7px]">
+                    <SidebarMenu>
+                         <div className="flex w-full items-center justify-between">
+                              <div className="text-base font-medium text-foreground">
+                                   Links
+                              </div>
                          </div>
-                    </div>
-                    {/* <SidebarInput placeholder="Digite para buscar..." /> */}
+                    </SidebarMenu>
+               {/* <SidebarInput placeholder="Digite para buscar..." /> */}
                </SidebarHeader>
                <SidebarContent>
-                    <SidebarGroup className="px-0">
+                    <SidebarGroup>
                          <SidebarGroupContent>
                               <ListGeneratedUrl />
                          </SidebarGroupContent>
                     </SidebarGroup>
                </SidebarContent>
+               <SidebarFooter className="flex justify-center">
+                    <NavUser />
+               </SidebarFooter>
           </Sidebar>
      </Sidebar>
   )

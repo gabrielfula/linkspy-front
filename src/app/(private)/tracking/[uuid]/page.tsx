@@ -14,15 +14,16 @@ export default async function UrlTrackingInfo({
      const { uuid } = await params;
 
      return (
-          <div className="container p-14">
-               <div className="flex justify-between items-center mb-6">  
+          <div className="container px-4 py-10 sm:px-6 md:px-10 lg:px-14">
+               <div className="flex justify-between items-center flex-wrap gap-2 mb-6">
                     <h1 className="text-2xl font-bold">Detalhes do Link Rastreável</h1>
-                    <Link href={'/home'} className="flex items-center justify-center mr-2">
+                    <Link href="/home" className="flex items-center text-sm text-muted-foreground">
                          <ArrowLeft className="h-4 w-4 mr-2" />
                          Voltar
                     </Link>
                </div>
-               <div className="grid gap-6 md:grid-cols-2">
+
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card>
                          <CardHeader>
                               <CardTitle>Informações do Link</CardTitle>

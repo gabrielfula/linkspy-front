@@ -24,7 +24,6 @@ type Link = {
 
 const fetchDetailsUrl = async (uuid: string): Promise<Link> => {
      const data = await apiRequest(`admin/url/details/${uuid}`, "GET");
-     console.log("refiz a request");
      return data.url;
 };
 

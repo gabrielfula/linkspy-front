@@ -37,9 +37,9 @@ export default function GenerateUrl() {
      return (
           <form className="space-y-4">
                <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                    <DialogContent className="max-w-md w-full ml-32">
+                    <DialogContent className="w-[90%] md:max-w-md md:w-full md:ml-32 md:p-5">
                          <DialogHeader>
-                              <DialogTitle className="mb-4 text-center">Informe o motivo do link gerado</DialogTitle>
+                              <DialogTitle className="text-center mb-4 md:text-base text-sm">Informe o motivo do link gerado</DialogTitle>
                               <TextInput
                                    name="alias"
                                    control={control}

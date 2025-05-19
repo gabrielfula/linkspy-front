@@ -9,7 +9,7 @@ export default function RecentUrl() {
 
      return (
           <>
-              <div className="rounded-lg border bg-card p-6 shadow-sm">
+               <div className="rounded-lg border bg-card p-6 shadow-sm">
                     <h3 className="mb-4 text-lg font-medium">URLs recentes geradas</h3>
                     {isLoading && <p>Carregando...</p>}
                     <div className="space-y-3">

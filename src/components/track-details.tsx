@@ -44,16 +44,16 @@ export default function TrackDetails({ uuid }: TrackDetailsProps) {
                               <h3 className="text-sm font-medium">Longitude</h3>
                               <p className="text-sm text-muted-foreground">{locationData?.longitude}</p>
                          </div>
-                         <div>
-                              <h3 className="text-sm font-medium">Latitude</h3>
-                              <p className="text-sm text-muted-foreground">{locationData?.latitude}</p>
-                         </div>
                          {locationData?.cep && (
                               <div>
                                    <h3 className="text-sm font-medium">CEP</h3>
                                    <p className="text-sm text-muted-foreground">{locationData.cep}</p>
                               </div>
                          )}
+                         <div>
+                              <h3 className="text-sm font-medium">Latitude</h3>
+                              <p className="text-sm text-muted-foreground">{locationData?.latitude}</p>
+                         </div>
                          {locationData?.neighborhood && (
                               <div>
                                    <h3 className="text-sm font-medium">Bairro</h3>

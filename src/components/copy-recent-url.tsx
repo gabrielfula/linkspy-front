@@ -22,7 +22,7 @@ export default function CopyRecentUrl({ original_link, new_link }: CopyRecentUrl
      return (
           <div className="flex items-center justify-between rounded-md border p-3">
                <div className="grid gap-1">
-                    <div className="font-medium">{new_link}</div>
+                    <div className="font-medium text-sm truncate w-full">{new_link}</div>
                     <div className="text-sm text-muted-foreground truncate">
                          {original_link}
                     </div>
