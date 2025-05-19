@@ -29,9 +29,10 @@ const fetchDetailsUrl = async (uuid: string): Promise<Link> => {
 
 export function useDetailsUrl(uuid: string) {
      return useQuery({
-          queryKey: ['list--detail-urls', uuid],
+          queryKey: ['list-detail-urls', uuid],
           queryFn: () => fetchDetailsUrl(uuid),
           staleTime: 1000 * 60 * 5,
+          refetchInterval: 5000,
           enabled: !!uuid,
      });
 }

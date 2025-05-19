@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+
 export const getCookie = (name: string): string | null => {
      const value = `; ${document.cookie}`;
      const parts = value.split(`; ${name}=`);
@@ -32,5 +34,6 @@ export const formatDate = (dateString?: string) => {
 };
 
 export const copyToClipboard = (text: string) => {
-     navigator.clipboard.writeText(text)
+     navigator.clipboard.writeText(text);
+     toast.message("Copiado para área de transferência!");
 }
