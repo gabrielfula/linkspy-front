@@ -1,19 +1,16 @@
 'use client';
 
-import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Separator } from "@radix-ui/react-separator";
-import { useTrackSocket } from "@/queries/use-track-socket";
 import { useDetailsUrl } from "@/queries/use-detail-url";
+import { Button } from "./ui/button";
 
 type TrackDetailsProps = {
   uuid: string;
 };
 
 export default function TrackDetails({ uuid }: TrackDetailsProps) {
-     const socketData           = useTrackSocket();
      const { data: detailData } = useDetailsUrl(uuid);
-     const isValidSocketData    = socketData && typeof socketData === 'object' && Object.keys(socketData).length > 0;
-     const locationData         = isValidSocketData ? socketData : detailData?.location.last_location;
 
      return (
           <>
@@ -26,7 +23,7 @@ export default function TrackDetails({ uuid }: TrackDetailsProps) {
                          <div>
                               <h3 className="font-medium">Localização</h3>
                               <p className="text-sm text-muted-foreground">
-                                   {locationData?.city} {locationData?.state}
+                                   {detailData?.location.last_location.street} - {detailData?.location.last_location.city}
                               </p>
                          </div>
                     </div>
@@ -34,45 +31,39 @@ export default function TrackDetails({ uuid }: TrackDetailsProps) {
                     <div className="grid grid-cols-2 gap-4">
                          <div>
                               <h3 className="text-sm font-medium">Estado</h3>
-                              <p className="text-sm text-muted-foreground">{locationData?.state}</p>
+                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.state}</p>
                          </div>
                          <div>
                               <h3 className="text-sm font-medium">Cidade</h3>
-                              <p className="text-sm text-muted-foreground">{locationData?.city}</p>
+                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.city}</p>
                          </div>
                          <div>
                               <h3 className="text-sm font-medium">Longitude</h3>
-                              <p className="text-sm text-muted-foreground">{locationData?.longitude}</p>
+                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.longitude}</p>
                          </div>
-                         {locationData?.cep && (
-                              <div>
-                                   <h3 className="text-sm font-medium">CEP</h3>
-                                   <p className="text-sm text-muted-foreground">{locationData.cep}</p>
-                              </div>
-                         )}
+                         <div>
+                              <h3 className="text-sm font-medium">CEP</h3>
+                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.cep}</p>
+                         </div>
                          <div>
                               <h3 className="text-sm font-medium">Latitude</h3>
-                              <p className="text-sm text-muted-foreground">{locationData?.latitude}</p>
+                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.latitude}</p>
                          </div>
-                         {locationData?.neighborhood && (
-                              <div>
-                                   <h3 className="text-sm font-medium">Bairro</h3>
-                                   <p className="text-sm text-muted-foreground">{locationData.neighborhood}</p>
-                              </div>
-                         )}
-                         {locationData?.street && (
-                              <div>
-                                   <h3 className="text-sm font-medium">Rua</h3>
-                                   <p className="text-sm text-muted-foreground">{locationData.street}</p>
-                              </div>
-                         )}
+                         <div>
+                              <h3 className="text-sm font-medium">Bairro</h3>
+                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.neighborhood}</p>
+                         </div>
+                         <div className="grid col-span-2">
+                              <h3 className="text-sm font-medium">Rua</h3>
+                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.street}</p>
+                         </div>
                     </div>
                </CardContent>
-               {/* <CardFooter>
+               <CardFooter>
                     <Button variant="outline" className="w-full">
                          Ver histórico de acessos
                     </Button>
-               </CardFooter> */}
+               </CardFooter>
           </>
      );
 }
