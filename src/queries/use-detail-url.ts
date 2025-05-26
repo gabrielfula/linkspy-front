@@ -32,7 +32,6 @@ export function useDetailsUrl(uuid: string) {
           queryKey: ['list-detail-urls', uuid],
           queryFn: () => fetchDetailsUrl(uuid),
           staleTime: 1000 * 60 * 5,
-          refetchInterval: 10000,
           enabled: !!uuid,
      });
 }

@@ -4,13 +4,16 @@ import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 
 import { Separator } from "@radix-ui/react-separator";
 import { useDetailsUrl } from "@/queries/use-detail-url";
 import { Button } from "./ui/button";
+import { useLocationSocket } from "@/hooks/use-locationSocket";
 
 type TrackDetailsProps = {
   uuid: string;
 };
 
 export default function TrackDetails({ uuid }: TrackDetailsProps) {
-     const { data: detailData } = useDetailsUrl(uuid);
+     const liveLocation          = useLocationSocket(uuid);
+     const { data: detaildData } = useDetailsUrl(uuid);
+     const location              = liveLocation || detaildData;
 
      return (
           <>
@@ -23,7 +26,7 @@ export default function TrackDetails({ uuid }: TrackDetailsProps) {
                          <div>
                               <h3 className="font-medium">Localização</h3>
                               <p className="text-sm text-muted-foreground">
-                                   {detailData?.location.last_location.street} - {detailData?.location.last_location.city}
+                                   {location?.location.last_location.street} - {location?.location.last_location.city}
                               </p>
                          </div>
                     </div>
@@ -31,31 +34,31 @@ export default function TrackDetails({ uuid }: TrackDetailsProps) {
                     <div className="grid grid-cols-2 gap-4">
                          <div>
                               <h3 className="text-sm font-medium">Estado</h3>
-                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.state}</p>
+                              <p className="text-sm text-muted-foreground">{location?.location.last_location.state}</p>
                          </div>
                          <div>
                               <h3 className="text-sm font-medium">Cidade</h3>
-                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.city}</p>
+                              <p className="text-sm text-muted-foreground">{location?.location.last_location.city}</p>
                          </div>
                          <div>
                               <h3 className="text-sm font-medium">Longitude</h3>
-                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.longitude}</p>
+                              <p className="text-sm text-muted-foreground">{location?.location.last_location.longitude}</p>
                          </div>
                          <div>
                               <h3 className="text-sm font-medium">CEP</h3>
-                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.cep}</p>
+                              <p className="text-sm text-muted-foreground">{location?.location.last_location.cep}</p>
                          </div>
                          <div>
                               <h3 className="text-sm font-medium">Latitude</h3>
-                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.latitude}</p>
+                              <p className="text-sm text-muted-foreground">{location?.location.last_location.latitude}</p>
                          </div>
                          <div>
                               <h3 className="text-sm font-medium">Bairro</h3>
-                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.neighborhood}</p>
+                              <p className="text-sm text-muted-foreground">{location?.location.last_location.neighborhood}</p>
                          </div>
                          <div className="grid col-span-2">
                               <h3 className="text-sm font-medium">Rua</h3>
-                              <p className="text-sm text-muted-foreground">{detailData?.location.last_location.street}</p>
+                              <p className="text-sm text-muted-foreground">{location?.location.last_location.street}</p>
                          </div>
                     </div>
                </CardContent>
