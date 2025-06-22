@@ -1,21 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
+'use server';
+
 import { apiRequest } from '@/lib/api';
 
-type Link = {
+export type Link = {
   uuid: string;
   original_link: string;
   new_link: string;
+  alias: string;
+  date: string;
 };
 
-const fetchRecentUrls = async (): Promise<Link[]> => {
-     const data = await apiRequest("admin/url/recent", "GET");
+export const fetchRecentUrls = async (): Promise<Link[]> => {
+     const data = await apiRequest('admin/url/recent', 'GET', undefined, {
+          next: {
+               tags: ['generate-url']
+          }
+     });
+
      return data.url;
 };
-
-export function useRecentUrls() {
-     return useQuery({
-          queryKey: ['recent-urls'],
-          queryFn: fetchRecentUrls,
-          staleTime: 1000 * 60 * 5,
-     });
-}

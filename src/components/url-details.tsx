@@ -1,18 +1,15 @@
-"use client"
-
 import { copyToClipboard, formatDate } from "@/helpers/utils";
 import { Calendar, Copy, ExternalLink } from "lucide-react";
 import { CardContent } from "./ui/card";
-import { useDetailsUrl } from "@/queries/use-detail-url";
 import { Button } from "./ui/button";
+import { fetchDetailsUrl } from "@/queries/use-detail-url";
 
 type UrlDetailsProps = {
      uuid: string;
 };
    
-export default function UrlDetails({ uuid }: UrlDetailsProps) {
-
-     const { data } = useDetailsUrl(uuid);
+export default async function UrlDetails({ uuid }: UrlDetailsProps) {
+     const data = await fetchDetailsUrl(uuid);
 
      return (
           <>
@@ -22,12 +19,12 @@ export default function UrlDetails({ uuid }: UrlDetailsProps) {
                          <div className="flex items-center justify-between bg-muted p-3 rounded-md">
                               <p className="text-sm truncate mr-2">{data?.original_link}</p>
                               <div className="flex-shrink-0">
-                                   <Button variant="ghost" size="icon" onClick={() => copyToClipboard(data?.original_link as string)}>
+                                   {/* <Button variant="ghost" size="icon" onClick={() => copyToClipboard(data?.original_link as string)}>
                                         <Copy className="h-4 w-4" />
                                    </Button>
                                    <Button variant="ghost" size="icon" onClick={() => window.open(data?.original_link, "_blank")}>
                                         <ExternalLink className="h-4 w-4" />
-                                   </Button>
+                                   </Button> */}
                               </div>
                          </div>
                     </div>
@@ -37,9 +34,9 @@ export default function UrlDetails({ uuid }: UrlDetailsProps) {
                          <div className="flex items-center justify-between bg-muted p-3 rounded-md">
                               <p className="text-sm truncate mr-2">{data?.new_link}</p>
                               <div className="flex-shrink-0">
-                                   <Button variant="ghost" size="icon" onClick={() => copyToClipboard(data?.new_link as string)}>
+                                   {/* <Button variant="ghost" size="icon" onClick={() => copyToClipboard(data?.new_link as string)}>
                                         <Copy className="h-4 w-4" />
-                                   </Button>
+                                   </Button> */}
                               </div>
                          </div>
                     </div>

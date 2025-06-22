@@ -1,37 +1,19 @@
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'sonner';
+'use server'
+
 import { LoginData } from '@/schemas/login/login.schema';
-import { useRouter } from 'next/navigation';
 
+const webUrl = process.env.NEXT_PUBLIC_BASE_URL!;
 
-const handleLogin = async (data: LoginData) => {
-     const res = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-     });
+export const handleLogin = async (data: LoginData) => {
+     try {
+          const res = await fetch(`${webUrl}/api/login`, {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify(data),
+          });
 
-     const result = await res.json();
-
-     if (!res.ok) throw new Error(result.message);
-     return result;
+          return await res.json();
+     } catch (error: any) {
+          throw new Error(error.message);
+     }
 };
-
-export function useLogin() {
-     const router = useRouter();
-
-     return useMutation({
-          mutationFn: async (data: LoginData) => await handleLogin(data),
-          onSuccess: (data) => {
-               if (data?.name) {
-                    localStorage.setItem("user_name", data.name);
-               }
-
-               toast.success("Login realizado com sucesso!");
-               router.push("/home");
-          },
-          onError: (ex: any) => {
-               toast.error(`${ex.message || "Erro desconhecido"}!`)
-          }
-     });
-}

@@ -1,31 +1,11 @@
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+'use client'
 
-const handleLogout = async () => {
-     const res = await fetch('/api/logout', {
-          method: 'POST',
-     });
+export const handleLogout = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+        method: 'POST',
+    });
 
-     const result = await res.json();
+    localStorage.removeItem("user_name");
 
-     if (!res.ok) throw new Error(result.message);
-     return result;
+    return;
 };
-
-export function useLogout() {
-     const router = useRouter();
-
-     return useMutation({
-          mutationFn: handleLogout,
-          onSuccess: () => {
-               localStorage.removeItem('user_name');
-
-               toast.success("Logout realizado com sucesso!");
-               router.push("/login");
-          },
-          onError: (ex: any) => {
-               toast.error(`${ex.message || "Erro desconhecido"}!`)
-          }
-     });
-}

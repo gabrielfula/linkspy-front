@@ -1,20 +1,21 @@
 "use client"
 
-import { useRecentUrls } from "@/queries/use-recent-url";
+import { Link } from "@/queries/use-recent-url";
 import CopyRecentUrl from "./copy-recent-url";
 
-export default function RecentUrl() {
+interface RecentUrlProps {
+  url: Link[];
+}
 
-     const { data: url, isLoading } = useRecentUrls();
-
+export default function RecentUrl({ url }: RecentUrlProps) {
      return (
           <>
                <div className="rounded-lg border bg-card p-6 shadow-sm">
                     <h3 className="mb-4 text-lg font-medium">URLs recentes geradas</h3>
-                    {isLoading && <p>Carregando...</p>}
+                    {/* {isLoading && <p>Carregando...</p>} */}
                     <div className="space-y-3">
                          {url && url.length > 0 ? (
-                              url.map((item) => (
+                              url.map((item: Link) => (
                                    <CopyRecentUrl
                                         key={item.uuid}
                                         new_link={item.new_link}

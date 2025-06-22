@@ -1,16 +1,16 @@
-"use client"
 
-import { useListUrl } from "@/queries/use-list-url";
+import { fetchListUrl } from "@/queries/use-list-url";
+import { Link as ILink } from "@/queries/use-recent-url";
 import Link from "next/link";
 
-export default function ListGeneratedUrl() {
-     const { data: links } = useListUrl();
+export default async function ListGeneratedUrl() {
+     const links = await fetchListUrl();
 
      return (
           <>
-               {links && links.map((item) => (
+               {links && links.map((item: ILink) => (
                     <Link
-                         href={`/tracking/${item.uuid}`}
+                         href={`/home/tracking/${item.uuid}`}
                          key={item.uuid}
                          className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                     >
@@ -19,7 +19,7 @@ export default function ListGeneratedUrl() {
                          </div>
                          <span className="truncate max-w-[260px] text-xs text-zinc-500">{item.original_link}</span>
                          <span className="line-clamp-2 w-[260px] whitespace-break-spaces text-xs">
-                              Yesterday
+                              {item.date}
                          </span>
                     </Link>
                ))}

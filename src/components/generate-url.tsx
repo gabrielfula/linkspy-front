@@ -1,6 +1,5 @@
 'use client'
 
-import { useGenerateUrl } from "@/queries/use-generate-url";
 import { Button } from "./ui/button";
 import { CreateUrlData, createUrlSchema } from "@/schemas/generate-url/generate-url";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,13 +7,12 @@ import { useForm } from "react-hook-form";
 import TextInput from "./input-text";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { useState } from "react";
+import { generateUrl } from "@/queries/use-generate-url";
 
 
 export default function GenerateUrl() {
 
      const [isOpen, setIsOpen] = useState<boolean>(false);
-
-     const { mutateAsync, isPending } = useGenerateUrl();
 
      const { control, handleSubmit, trigger, reset } = useForm<CreateUrlData>({
           resolver: zodResolver(createUrlSchema),
@@ -30,7 +28,7 @@ export default function GenerateUrl() {
 
      const handleCreateLink = async (data: CreateUrlData) => {
           reset({ old_url: "", alias: "" });
-          await mutateAsync(data);
+          await generateUrl(data);
           setIsOpen(false);
      };
 
@@ -45,10 +43,11 @@ export default function GenerateUrl() {
                                    control={control}
                                    placeholder="ex: Um conhecido está perdido"
                                    className="h-10"
-                                   disabled={isPending}
+                                   // disabled={isPending}
                               />
-                              <Button type="button" onClick={handleSubmit(handleCreateLink)} size="lg" className="h-12 px-6 cursor-pointer" disabled={isPending}>
-                                   {isPending ? "Gerando..." : "Gerar"}
+                              <Button type="button" onClick={handleSubmit(handleCreateLink)} size="lg" className="h-12 px-6 cursor-pointer" >
+                                   {/* {isPending ? "Gerando..." : "Gerar"} */}
+                                   Gerar
                               </Button>
                          </DialogHeader>
                     </DialogContent>
@@ -60,10 +59,11 @@ export default function GenerateUrl() {
                               control={control}
                               placeholder="https://exemplo.com/de/link/para/rastrear"
                               className="flex-1 h-12 text-base"
-                              disabled={isPending}
+                              // disabled={isPending}
                          />
-                         <Button type="button" onClick={handleOpenModal} size="lg" className="h-12 px-6 cursor-pointer" disabled={isPending}>
-                              {isPending ? "Gerando..." : "Gerar"}
+                         <Button type="button" onClick={handleOpenModal} size="lg" className="h-12 px-6 cursor-pointer">
+                              {/* {isPending ? "Gerando..." : "Gerar"} */}
+                              Gerar
                          </Button>
                     </div>
                </div>

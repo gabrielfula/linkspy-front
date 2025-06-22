@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { Command } from "lucide-react"
 
@@ -16,8 +14,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import ListGeneratedUrl from "./list-generated-url"
-
-
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 

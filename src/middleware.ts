@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-     const isLoggedIn = request.cookies.get("token");
-     const pathname = request.nextUrl.pathname;
-
+     const sessionToken     = request.cookies.get('next-auth.session-token') || request.cookies.get('__Secure-next-auth.session-token');
+     const isLoggedIn       = !!sessionToken;
+     const pathname         = request.nextUrl.pathname;
      const isProtectedRoute = pathname.startsWith("/home");
-     const isPublicRoute = ["/", "/login", "/register"].includes(pathname);
+     const isPublicRoute    = ["/", "/login", "/register"].includes(pathname);
 
      if (isProtectedRoute && !isLoggedIn) {
           const loginUrl = new URL("/login", request.url);
@@ -21,5 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/register", "/home/:path*"],
+  matcher: ["/login", "/register", "/home/:path*"],
 };

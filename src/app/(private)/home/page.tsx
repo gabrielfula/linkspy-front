@@ -1,7 +1,10 @@
 import GenerateUrl from "@/components/generate-url"
 import RecentUrl from "@/components/recent-url"
+import { fetchRecentUrls } from "@/queries/use-recent-url";
 
-export default function HomePage() {
+export default async function HomePage() {
+     const data = await fetchRecentUrls();
+
      return (
           <>
                <main className="flex flex-1 flex-col items-center justify-center p-6">
@@ -13,7 +16,7 @@ export default function HomePage() {
                               </p>
                          </div>
                          <GenerateUrl />
-                         <RecentUrl />
+                         <RecentUrl url={data} />
                     </div>
                </main>
           </>

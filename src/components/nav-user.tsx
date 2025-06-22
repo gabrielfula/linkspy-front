@@ -19,13 +19,20 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { firstLetters } from "@/helpers/utils"
-import { useLogout } from "@/queries/use-logout"
+import { handleLogout as ServiceLogout } from "@/queries/use-logout"
+import { useRouter } from "next/navigation"
 
 export function NavUser() {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebar();
+  const router = useRouter();
 
   const [user, setUser] = useState<string | null>(null);
-  const { mutateAsync } = useLogout();
+
+  const handleLogout = async () => {
+    await ServiceLogout();
+
+    router.push("/login");
+  }
 
   useEffect(() => {
     const storedName = localStorage.getItem("user_name");
@@ -48,7 +55,6 @@ export function NavUser() {
                   {firstLetters(user ?? 'Usuário')}
                 </span>
               </div>
-              {/* <ChevronsUpDown className="ml-auto size-4" /> */}
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -66,7 +72,7 @@ export function NavUser() {
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer" onClick={() => mutateAsync()}>
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               <LogOut />
               Sair
             </DropdownMenuItem>
