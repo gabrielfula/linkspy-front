@@ -8,11 +8,13 @@ import TextInput from "./input-text";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { useState } from "react";
 import { generateUrl } from "@/queries/use-generate-url";
+import { toast } from "sonner";
 
 
 export default function GenerateUrl() {
 
      const [isOpen, setIsOpen] = useState<boolean>(false);
+     const [isPending, setIsPending] = useState<boolean>(false);
 
      const { control, handleSubmit, trigger, reset } = useForm<CreateUrlData>({
           resolver: zodResolver(createUrlSchema),
@@ -27,8 +29,17 @@ export default function GenerateUrl() {
      };
 
      const handleCreateLink = async (data: CreateUrlData) => {
+          setIsPending(true);
           reset({ old_url: "", alias: "" });
-          await generateUrl(data);
+
+          try {
+               await generateUrl(data);
+               toast.success("Link criado com sucesso!");
+          } catch (error: any) {
+               toast.success("Erro ao criar link!", error);
+          }
+
+          setIsPending(false);
           setIsOpen(false);
      };
 
@@ -43,11 +54,10 @@ export default function GenerateUrl() {
                                    control={control}
                                    placeholder="ex: Um conhecido está perdido"
                                    className="h-10"
-                                   // disabled={isPending}
+                                   disabled={isPending}
                               />
                               <Button type="button" onClick={handleSubmit(handleCreateLink)} size="lg" className="h-12 px-6 cursor-pointer" >
-                                   {/* {isPending ? "Gerando..." : "Gerar"} */}
-                                   Gerar
+                                   {isPending ? "Gerando..." : "Gerar"}
                               </Button>
                          </DialogHeader>
                     </DialogContent>
@@ -59,11 +69,10 @@ export default function GenerateUrl() {
                               control={control}
                               placeholder="https://exemplo.com/de/link/para/rastrear"
                               className="flex-1 h-12 text-base"
-                              // disabled={isPending}
+                              disabled={isPending}
                          />
                          <Button type="button" onClick={handleOpenModal} size="lg" className="h-12 px-6 cursor-pointer">
-                              {/* {isPending ? "Gerando..." : "Gerar"} */}
-                              Gerar
+                              {isPending ? "Gerando..." : "Gerar"}
                          </Button>
                     </div>
                </div>

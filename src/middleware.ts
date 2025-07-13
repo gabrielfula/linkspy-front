@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
      const pathname         = request.nextUrl.pathname;
      const isProtectedRoute = pathname.startsWith("/home");
      const isPublicRoute    = ["/", "/login", "/register"].includes(pathname);
-
+     
      if (isProtectedRoute && !isLoggedIn) {
           const loginUrl = new URL("/login", request.url);
           loginUrl.searchParams.set("redirect", pathname);
@@ -21,5 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/home/:path*"],
+  matcher: ["/home/:path*"],
 };

@@ -5,7 +5,6 @@ import { cookies } from 'next/headers';
 export async function POST(req: NextRequest) {
 
      try {
-          console.log("post")
           const cookieStore = await cookies();
           cookieStore.delete('next-auth.session-token');
           cookieStore.delete('next-auth.callback-url');

@@ -6,13 +6,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Button } from "./ui/button";
-
 import { LoginData, loginSchema } from "@/schemas/login/login.schema";
 import { RegisterData, registerSchema } from "@/schemas/register/register.schema";
 import { useRouter, useSearchParams } from "next/navigation";
-import { handleLogin } from "@/queries/use-login";
 import { handleRegister } from "@/queries/use-register";
 import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 
 type Mode = "login" | "register";
@@ -28,8 +27,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
     const router       = useRouter();
     const searchParams = useSearchParams();
     const redirect     = searchParams.get('redirect') || '/home';
-
-    const isLogin = mode === "login";
+    const isLogin      = mode === "login";
 
     const {
         control,
@@ -45,17 +43,26 @@ export default function AuthForm({ mode }: AuthFormProps) {
         setIsPending(true);
 
         if (isLogin) {
-            await signIn("credentials", {
+            const res = await signIn("credentials", {
                 redirect: false,
-                ...data,
+                ...data as LoginData,
                 callbackUrl: redirect,
             });
 
-            router.push(redirect);
+            if (res?.ok) {
+                toast.success("Login realizado com sucesso!");
+                router.push(redirect);
+            } else {
+                toast.error("Email ou senha incorretos.");
+            }
         } else {
-            await handleRegister(data as RegisterData);
-
-            router.push('/login');
+            try {
+                await handleRegister(data as RegisterData);
+                toast.success("Conta criada com sucesso!");
+                router.push('/login');
+            } catch (error) {
+                toast.error("Erro ao registrar. Tente novamente.");
+            }
         }
 
         setIsPending(false);

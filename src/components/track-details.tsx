@@ -7,7 +7,7 @@ type TrackDetailsProps = {
 
 export default async function TrackDetails({ uuid }: TrackDetailsProps) {
   const detaildData = await fetchDetailsUrl(uuid);
-  const fallbackLocation = detaildData?.location.last_location;
+  const fallbackLocation = detaildData?.location;
 
   return <TrackDetailsClient uuid={uuid} fallbackLocation={fallbackLocation} />;
 }

@@ -4,6 +4,11 @@ import { useLocationSocket } from "@/hooks/use-locationSocket";
 import { CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
 import { Separator } from "@radix-ui/react-separator";
 import { Button } from "./ui/button";
+import HistoryLink from "./history-link";
+import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+
+
 
 type Props = {
   uuid: string;
@@ -11,8 +16,9 @@ type Props = {
 };
 
 export default function TrackDetailsClient({ uuid, fallbackLocation }: Props) {
-    const liveLocation = useLocationSocket(uuid);
-    const location = liveLocation || fallbackLocation;
+    const liveLocation        = useLocationSocket(uuid);
+    const location            = liveLocation || fallbackLocation.last_location;
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
@@ -24,9 +30,7 @@ export default function TrackDetailsClient({ uuid, fallbackLocation }: Props) {
                 <div className="flex items-start">
                     <div>
                         <h3 className="font-medium">Localização</h3>
-                        <p className="text-sm text-muted-foreground">
-                        {location?.street} - {location?.city}
-                        </p>
+                        <p className="text-sm text-muted-foreground">{location?.street} - {location?.city}</p>
                     </div>
                 </div>
                 <Separator />
@@ -61,11 +65,21 @@ export default function TrackDetailsClient({ uuid, fallbackLocation }: Props) {
                     </div>
                 </div>
             </CardContent>
-            <CardFooter>
-                <Button variant="outline" className="w-full">
-                    Ver histórico de acessos
-                </Button>
-            </CardFooter>
+            {location?.latitude && location?.longitude && (
+                <CardFooter className="flex flex-col gap-4">
+                    <div>
+                        {/* <MapLocation latitude={location.latitude} longitude={location.longitude} key={location.uuid} /> */}
+                    </div>
+                    <Button onClick={() => setIsOpen(!isOpen)} variant="outline" className="w-full">
+                        Ver histórico de acessos
+                    </Button>
+                    <HistoryLink
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        locations={fallbackLocation.locations_history}
+                    />
+                </CardFooter>
+            )}
         </>
     );
 }

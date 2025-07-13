@@ -9,7 +9,6 @@ export async function apiRequest(
   extraOptions?: RequestInit & { next?: { tags?: string[]; revalidate?: number } }
 ) {
      const baseUrl                = process.env.NEXT_PUBLIC_API_BASE_URL;
-     const webUrl                 = process.env.NEXT_PUBLIC_BASE_URL!;
      const fullUrl                = `${baseUrl}/${path.replace(/^\/+/, "")}`;
      const { token, accountCode } = await getServerCookies();
 
